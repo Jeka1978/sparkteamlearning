@@ -12,7 +12,6 @@ object ExplodeExample {
     var dataFrame = SparkHolder.spark.read.json("files/data.json")
 
     val colAmount = dataFrame.head().getAs[mutable.WrappedArray.ofRef[String]]("f").size
-    println(colAmount + " *****************")
     1.to(colAmount).foreach(i => {
       dataFrame = dataFrame.withColumn(s"F$i", col("f").getItem(i - 1))
     })
